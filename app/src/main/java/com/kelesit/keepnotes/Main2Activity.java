@@ -3,6 +3,7 @@ package com.kelesit.keepnotes;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
@@ -28,6 +29,7 @@ public class Main2Activity extends AppCompatActivity {
     EditText editText;
     static SQLiteDatabase database;
     Bitmap selectedImage;
+    byte[] image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,12 @@ public class Main2Activity extends AppCompatActivity {
         else{
             btnSaveImg.setVisibility(View.INVISIBLE);
             btnSelectImg.setVisibility(View.INVISIBLE);
+
+            String name = intent.getStringExtra("name");
+            editText.setText(name);
+
+            int position = intent.getIntExtra("position", 0);
+            imageView.setImageBitmap(MainActivity.noteImg.get(position));
         }
     }
 
