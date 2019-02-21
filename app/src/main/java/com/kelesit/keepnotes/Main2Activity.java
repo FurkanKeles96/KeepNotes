@@ -56,11 +56,25 @@ public class Main2Activity extends AppCompatActivity {
             btnSaveImg.setVisibility(View.INVISIBLE);
             btnSelectImg.setVisibility(View.INVISIBLE);
 
-            String name = intent.getStringExtra("name");
-            editText.setText(name);
+            String imgName = intent.getStringExtra("name");
+            editText.setText(imgName);
 
-            int position = intent.getIntExtra("position", 0);
-            imageView.setImageBitmap(MainActivity.noteImg.get(position));
+            //int position = intent.getIntExtra("position", 0);
+            //imageView.setImageBitmap(MainActivity.noteImg.get(position));
+
+
+
+
+            Cursor cursor = database.rawQuery("SELECT image FROM notes WHERE name=?", new String[] {imgName});
+
+            int imageIx = cursor.getColumnIndex("image");
+            cursor.moveToFirst(); //İlkinden başla
+
+
+            byte[] byteArrayImg = cursor.getBlob(imageIx);
+
+            Bitmap image = BitmapFactory.decodeByteArray(byteArrayImg,0,byteArrayImg.length); //Alınan byte ı bitmape çevir
+            imageView.setImageBitmap(image);
         }
     }
 
@@ -127,6 +141,7 @@ public class Main2Activity extends AppCompatActivity {
             statement.bindString(1,noteName); //Stringteki ilk ? yerine noteName değerini koy
             statement.bindBlob(2,byteArrayImg); //Stringteki ikinci ? yerine byteArray yaptığımız resmi koy
             statement.execute();
+            
 
 
         }catch (Exception e){
