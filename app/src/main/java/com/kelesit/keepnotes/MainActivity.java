@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    static ArrayList<Bitmap> noteImg;
+    //static ArrayList<Bitmap> noteImg;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.listView);
 
         final ArrayList<String> noteName = new ArrayList<>();
-        noteImg = new ArrayList<>();
+        //noteImg = new ArrayList<>();
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, noteName);
         listView.setAdapter(arrayAdapter);
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
                 byte[] byteArrayImg = cursor.getBlob(imageIx);
                 Bitmap image = BitmapFactory.decodeByteArray(byteArrayImg,0,byteArrayImg.length); //Alınan byte ı bitmape çevir
-                noteImg.add(image);
+                //noteImg.add(image);
 
                 cursor.moveToNext();
                 arrayAdapter.notifyDataSetChanged();
